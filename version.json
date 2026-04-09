@@ -4,10 +4,8 @@
   "filename": "update_v1.6.1.bat",
   "download_url": "https://raw.githubusercontent.com/ddim8187/clhpa/main/installer_clhpa_v1.6.1.bat",
   "changelog": [
-    { "version": "1.6.0",
-      "date": "2026-04-09",
-      "desc": "최초 배포"}
-      {"version": "1.6.1", "date": "2026-04-10", "desc": "버그 수정"}
-    }
+    { "version": "1.6.0", "date": "2026-04-09", "desc": "최초 배포"}
+    {"version": "1.6.1", "date": "2026-04-10", "desc": "버그 수정"}
+    
   ]
 }
