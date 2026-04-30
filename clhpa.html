@@ -24,22 +24,35 @@ const auth = getAuth(app);
 const db   = getDatabase(app);
 
 // ── 세션에서 사용자 정보 가져오기 ──
-const CENTER   = sessionStorage.getItem('clhpa_center') || '';
-const USERNAME = sessionStorage.getItem('clhpa_name')   || '';
-const CAN_EDIT = sessionStorage.getItem('clhpa_canEdit') === '1';
-
-// ── 인증 확인 ──
+// ── 1. 인증 확인 로직을 하나로 통합 ──
 onAuthStateChanged(auth, user => {
     if (!user) {
+        // 실제 파이어베이스 인증 세션이 없는 경우
         alert('로그인이 필요합니다. 워크스페이스로 이동합니다.');
         window.location.href = 'index.html';
         return;
     }
+
+    // ── 2. 유저가 확인된 후 세션 정보 가져오기 ──
+    const CENTER   = sessionStorage.getItem('clhpa_center') || '';
+    const USERNAME = sessionStorage.getItem('clhpa_name')   || '';
+    
+    // 만약 센터 정보가 없다면, DB에서 다시 불러오거나 강제 이동
     if (!CENTER) {
         alert('센터 정보가 없습니다. 워크스페이스에서 다시 접속해주세요.');
         window.location.href = 'index.html';
         return;
     }
+
+    // ── 3. UI 업데이트 ──
+    const infoEl = document.getElementById('clhpa-user-info');
+    if (infoEl) infoEl.textContent = `${USERNAME} | ${CENTER}`;
+
+    const ci = document.getElementById('centerNameInput');
+    if (ci) ci.value = CENTER;
+    
+    console.log("인증 성공:", USERNAME);
+});
     // 헤더 정보 표시
     var infoEl = document.getElementById('clhpa-user-info');
     if (infoEl) infoEl.textContent = USERNAME + ' | ' + CENTER;
