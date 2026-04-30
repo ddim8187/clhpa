@@ -23,12 +23,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getDatabase(app);
 
-    // 헤더 정보 표시
-    var infoEl = document.getElementById('clhpa-user-info');
-    if (infoEl) infoEl.textContent = USERNAME + ' | ' + CENTER;
-    // 센터명 자동 입력
-    var ci = document.getElementById('centerNameInput');
-    if (ci && !ci.value) ci.value = CENTER;
+// ── 세션에서 사용자 정보 가져오기 ──
+const CENTER   = sessionStorage.getItem('clhpa_center') || '';
+const USERNAME = sessionStorage.getItem('clhpa_name')   || '';
+const CAN_EDIT = sessionStorage.getItem('clhpa_canEdit') === '1';
 
     // ── Firebase Storage 래퍼 ──
     // localStorage를 Firebase Realtime DB로 대체
